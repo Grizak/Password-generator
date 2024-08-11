@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script>
+      function redirectBasedOnDevice() {
+          // Get the user agent string
+          const userAgent = navigator.userAgent.toLowerCase();
+
+          // Define device types
+          const isMobile = /iphone|ipod|android.*mobile|windows.*phone|blackberry.*mobile/i.test(userAgent);
+
+          const isTablet = /ipad|android(?!.*mobile)|windows.*tablet|kindle|silk/i.test(userAgent);
+
+          const isDesktop = !isMobile && !isTablet;
+
+          console.log("Is Mobile: ", isMobile);
+          console.log("Is Tablet: ", isTablet);
+          console.log("Is Desktop: ", isDesktop);
+
+          // Redirect based on device type
+          if (isMobile) {
+              window.location.href = ""; // Mobile website URL 9:16
+          } else if (isTablet || isDesktop) {
+              window.location.href = ""; // Tablet/Computer website URL 16:9
+          }
+        }
+
+      // window.onload = redirectBasedOnDevice()
+    </script>
+  </head>
+  <body>
+
+ </body>
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login - Password Manager</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="container">
+  <div class="login-box">
+    <h1>Login</h1>
+    <form id="loginForm">
+      <div class="input-group">
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" required>
+      </div>
+      <div class="input-group">
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" required>
+      </div>
+      <div class="input-group">
+        <input type="checkbox" id="keepLoggedIn" name="keepLoggedIn">
+        <label for="keepLoggedIn">Keep me logged in</label>
+      </div>
+      <button type="submit" class="btn">Login</button>
+      <p class="register-link">Don't have an account? <a href="../register/register.html">Register here</a></p>
+    </form>
+  </div>
+</div>
+<script src="login.js"></script>
+</body>
+</html>

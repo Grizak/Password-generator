@@ -17,12 +17,9 @@ mongoose.connect('mongodb://localhost:27017/passwords')
     .then(() => console.log('Connected to MongoDB'))
     .catch(err => console.error('Failed to connect to MongoDB', err));
 
-// Serve static files from the "public" directory
-app.use(express.static(path.join(__dirname, 'public')));
-
 // Define the route for the root path
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'index.html'));
+    res.sendFile(path.join(__dirname, 'index.html'));
 });
 
 // Route to get all users (admin only)
@@ -119,7 +116,7 @@ app.post('/login', async (req, res) => {
 
         if (!user) {
             // console.log('User not found'); // Debugging
-            return res.status(400).json({ message: 'Invalid credentials' });
+            return res.status(400).json({ message: 'Invalid credentials (user)' });
         }
 
         const isMatch = await bcrypt.compare(password, user.password);
@@ -127,7 +124,7 @@ app.post('/login', async (req, res) => {
 
         if (!isMatch) {
             // console.log('Invalid password'); // Debugging
-            return res.status(400).json({ message: 'Invalid credentials' });
+            return res.status(400).json({ message: 'Invalid credentials (password)' });
         }
 
         const token = jwt.sign({ userId: user._id, role: user.role }, process.env.JWT_SECRET, { expiresIn: '1h' });
@@ -151,7 +148,7 @@ function authenticateToken(req, res, next) {
     const token = req.header('Authorization')?.split(' ')[1];
     if (!token) return res.sendStatus(401);
 
-    jwt.verify(token, 'your_jwt_secret', (err, user) => {
+    jwt.verify(token, 'process.env.JWT_SECRET', (err, user) => {
         if (err) return res.sendStatus(403);
         req.user = user;
         next();

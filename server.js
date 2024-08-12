@@ -104,39 +104,39 @@ app.post('/register', [
 // Step 4: User Login Route
 app.post('/login', async (req, res) => {
     try {
-        console.log('Login attempt received'); // Debugging
+        // console.log('Login attempt received'); // Debugging
 
         const { email, password } = req.body;
-        console.log('Request body:', req.body); // Debugging
+        // console.log('Request body:', req.body); // Debugging
 
         if (!email || !password) {
-            console.log('Missing email or password'); // Debugging
+            // console.log('Missing email or password'); // Debugging
             return res.status(400).json({ message: 'Email and password are required' });
         }
 
         const user = await User.findOne({ email });
-        console.log('User found:', user); // Debugging
+        // console.log('User found:', user); // Debugging
 
         if (!user) {
-            console.log('User not found'); // Debugging
+            // console.log('User not found'); // Debugging
             return res.status(400).json({ message: 'Invalid credentials' });
         }
 
         const isMatch = await bcrypt.compare(password, user.password);
-        console.log('Password match:', isMatch); // Debugging
+        // console.log('Password match:', isMatch); // Debugging
 
         if (!isMatch) {
-            console.log('Invalid password'); // Debugging
+            // console.log('Invalid password'); // Debugging
             return res.status(400).json({ message: 'Invalid credentials' });
         }
 
         const token = jwt.sign({ userId: user._id, role: user.role }, process.env.JWT_SECRET, { expiresIn: '1h' });
-        console.log('Token generated:', token); // Debugging
+        // console.log('Token generated:', token); // Debugging
 
         res.json({ token });
 
     } catch (error) {
-        console.error('Error during login:', error); // Debugging
+        // console.error('Error during login:', error); // Debugging
         res.status(500).json({ message: 'Server error' });
     }
 });
